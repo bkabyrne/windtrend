@@ -1,5 +1,7 @@
+import json
 import requests
 from windtrend.handler import handler
+
 
 def _valid_event():
     return {
@@ -8,6 +10,7 @@ def _valid_event():
         "start_date": "2015-01-01",
         "end_date": "2025-01-01",
     }
+
 
 def test_handler_success(monkeypatch):
     # Fake 3 years of hourly-ish data (minimal)
@@ -20,11 +23,17 @@ def test_handler_success(monkeypatch):
     monkeypatch.setattr("windtrend.core.fetch_hourly_wind_speed_10m", fake_fetch)
 
     out = handler(_valid_event(), None)
+
+    # Existing assertions
     assert out["ok"] is True
     assert "result" in out
     assert "annual_means" in out["result"]
     assert "trend" in out["result"]
     assert out["result"]["trend"] is not None
+
+    # New: Lambda contract (must be JSON-serializable)
+    json.dumps(out)
+
 
 def test_handler_invalid_request():
     event = {
@@ -37,6 +46,7 @@ def test_handler_invalid_request():
     assert out["ok"] is False
     assert out["error"]["code"] == "INVALID_REQUEST"
 
+
 def test_handler_upstream_timeout(monkeypatch):
     def fake_fetch(*args, **kwargs):
         raise requests.Timeout()
@@ -46,6 +56,7 @@ def test_handler_upstream_timeout(monkeypatch):
     out = handler(_valid_event(), None)
     assert out["ok"] is False
     assert out["error"]["code"] == "UPSTREAM_TIMEOUT"
+
 
 def test_handler_upstream_rate_limit(monkeypatch):
     resp = requests.Response()

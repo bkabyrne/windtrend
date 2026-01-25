@@ -1,0 +1,34 @@
+# ---- Python bytecode / caches ----
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---- Virtual environments ----
+.venv/
+venv/
+ENV/
+env/
+
+# ---- Packaging / build artifacts ----
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ---- Test / coverage artifacts ----
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# ---- Type checker / linter caches ----
+.mypy_cache/
+.ruff_cache/
+.pyright/
+.cache/
+
+# ---- OS/editor noise ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

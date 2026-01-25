@@ -84,8 +84,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     """
     try:
         req = TrendRequest.model_validate(event)
-        result = run(req).model_dump()
-        return {"ok": True, "result": result}
+        result = run(req)
+        return {"ok": True, "result": result.model_dump(mode="json")}
 
     except Exception as exc:
         err = _map_exception(exc)
