@@ -27,8 +27,14 @@ htmlcov/
 .pyright/
 .cache/
 
+# ---- Terraform ----
+.terraform/
+*.tfstate
+*.tfstate.backup
+
 # ---- OS/editor noise ----
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
+.claude/settings.local.json
