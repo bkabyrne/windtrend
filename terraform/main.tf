@@ -188,6 +188,7 @@ resource "aws_iam_policy" "github_actions" {
           "lambda:TagResource",
           "lambda:PutFunctionConcurrency",
           "lambda:GetPolicy",
+          "lambda:ListVersionsByFunction",
         ]
         Resource = "arn:aws:lambda:${var.aws_region}:${data.aws_caller_identity.current.account_id}:function:windtrend"
       },
