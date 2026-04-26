@@ -49,12 +49,19 @@ jobs:
             -backend-config="region=${{ secrets.AWS_REGION }}" \
             -backend-config="dynamodb_table=terraform-locks"
 
+      - name: Update IAM permissions
+        working-directory: terraform
+        run: |
+          terraform apply -auto-approve \
+            -target=aws_iam_policy.github_actions
+
       - name: Ensure ECR exists
         working-directory: terraform
         run: |
           terraform apply -auto-approve \
             -target=aws_ecr_repository.windtrend \
-            -target=aws_ecr_lifecycle_policy.windtrend
+            -target=aws_ecr_lifecycle_policy.windtrend \
+            -target=aws_ecr_repository_policy.windtrend
 
       - name: Login to ECR
         id: login-ecr
