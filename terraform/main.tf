@@ -187,8 +187,10 @@ resource "aws_iam_policy" "github_actions" {
           "lambda:GetFunctionConfiguration",
           "lambda:TagResource",
           "lambda:PutFunctionConcurrency",
+          "lambda:GetFunctionConcurrency",
           "lambda:GetPolicy",
           "lambda:ListVersionsByFunction",
+          "lambda:ListTags",
         ]
         Resource = "arn:aws:lambda:${var.aws_region}:${data.aws_caller_identity.current.account_id}:function:windtrend"
       },
@@ -200,10 +202,13 @@ resource "aws_iam_policy" "github_actions" {
           "iam:CreateRole",
           "iam:GetRole",
           "iam:PassRole",
+          "iam:UpdateAssumeRolePolicy",
           "iam:AttachRolePolicy",
           "iam:DetachRolePolicy",
           "iam:ListRolePolicies",
           "iam:ListAttachedRolePolicies",
+          "iam:TagRole",
+          "iam:ListRoleTags",
         ]
         Resource = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/windtrend-*"
       },
@@ -217,6 +222,7 @@ resource "aws_iam_policy" "github_actions" {
           "iam:GetPolicyVersion",
           "iam:ListPolicyVersions",
           "iam:CreatePolicyVersion",
+          "iam:DeletePolicyVersion",
         ]
         Resource = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/windtrend-*"
       },
