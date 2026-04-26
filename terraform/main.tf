@@ -90,8 +90,7 @@ resource "aws_lambda_function" "windtrend" {
   package_type  = "Image"
   image_uri     = var.image_uri
 
-  timeout                        = 120
-  reserved_concurrent_executions = 5
+  timeout = 120
 }
 
 # ── GitHub Actions OIDC ───────────────────────────────────────────────────────
