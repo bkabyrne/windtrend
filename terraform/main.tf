@@ -168,6 +168,8 @@ resource "aws_iam_policy" "github_actions" {
         Action = [
           "ecr:PutLifecyclePolicy",
           "ecr:GetLifecyclePolicy",
+          "ecr:SetRepositoryPolicy",
+          "ecr:GetRepositoryPolicy",
           "ecr:ListTagsForResource",
           "ecr:TagResource",
         ]
